@@ -21,13 +21,13 @@ RUN Rscript --no-restore --no-save -e "install.packages('tinytex')"
 RUN Rscript --no-restore --no-save -e "tinytex::install_tinytex()"
 
 # Optional: Install RStudio Server (if needed)
-# RUN apt install -y gdebi-core \
-#     && wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.4.1106-amd64.deb \
-#     && gdebi --non-interactive rstudio-server-1.4.1106-amd64.deb \
-#     && rm rstudio-server-1.4.1106-amd64.deb
+RUN apt install -y gdebi-core \
+    && wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.4.1106-amd64.deb \
+    && gdebi --non-interactive rstudio-server-1.4.1106-amd64.deb \
+    && rm rstudio-server-1.4.1106-amd64.deb
 
-# Expose ports (RStudio and Jupyter)
-EXPOSE 8787 8888
+# Expose ports
+EXPOSE 8787
 
 # Set the default working directory
 WORKDIR /home/rstudio
