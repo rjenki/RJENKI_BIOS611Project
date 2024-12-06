@@ -13,6 +13,9 @@ RUN apt update \
     && DEBIAN_FRONTEND=noninteractive apt install -y sqlite3 lighttpd x11-apps wget gdebi-core \
     && echo "rstudio:$linux_user_pwd" | chpasswd
 
+# Install Git (to fix the git warning)
+RUN apt-get update && apt-get install -y git
+
 # Install required R packages
 RUN Rscript --no-restore --no-save -e "install.packages(c('ggplot2', 'gridExtra', 'grid', 'dplyr', 'tidyr', 'kableExtra', 'knitr'))"
 
