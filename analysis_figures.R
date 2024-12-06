@@ -137,16 +137,16 @@ saveRDS(mmse_group_tukey_table, file="/home/rstudio/RJENKI_BIOS611Project/figure
 
 # nWBV and Age By Dementia Group
   # Linear regression models
-nondemented_data <- oasis_data %>% filter(Group == "nondemented")
-model_non_demented <- lm(nWBV ~ age, data = nondemented_data)
+nondemented_data <- oasis_data %>% filter(Group == "Nondemented")
+model_non_demented <- lm(nWBV ~ Age, data = nondemented_data)
 summary(model_non_demented)
 
-demented_data <- oasis_data %>% filter(Group == "demented")
-model_demented <- lm(nWBV ~ age, data = demented_data)
+demented_data <- oasis_data %>% filter(Group == "Demented")
+model_demented <- lm(nWBV ~ Age, data = demented_data)
 summary(model_demented)
 
-converted_data <- oasis_data %>% filter(Group == "converted")
-model_converted <- lm(nWBV ~ age, data = converted_data)
+converted_data <- oasis_data %>% filter(Group == "Converted")
+model_converted <- lm(nWBV ~ Age, data = converted_data)
 summary(model_converted)
 
   # Combined plot
