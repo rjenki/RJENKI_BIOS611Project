@@ -26,11 +26,6 @@ RUN Rscript --no-restore --no-save -e "install.packages(c('ggplot2', 'gridExtra'
 RUN Rscript --no-restore --no-save -e "install.packages('tinytex')" \
     && Rscript --no-restore --no-save -e "tinytex::install_tinytex()"
 
-# Install RStudio Server (if needed)
-RUN wget -q https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.4.1106-amd64.deb \
-    && gdebi --non-interactive rstudio-server-1.4.1106-amd64.deb \
-    && rm rstudio-server-1.4.1106-amd64.deb
-
 # Clean up package lists and unnecessary files to reduce image size
 RUN apt clean && rm -rf /var/lib/apt/lists/*
 
