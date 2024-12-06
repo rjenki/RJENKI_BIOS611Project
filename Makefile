@@ -4,7 +4,6 @@
 
 clean:
 	rm -rf figures/*
-	rm -rf data/*
 	rm -f report.pdf
 
 .created-dirs:
