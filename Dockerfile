@@ -1,6 +1,6 @@
 FROM rocker/rstudio
 
-# Set the password for the rstudio user to "workspace"
+# Set the password for the rstudio user
 ARG linux_user_pwd=workspace
 
 # Set the shell to bash
@@ -37,5 +37,5 @@ EXPOSE 8787
 # Set the default working directory
 WORKDIR /home/rstudio
 
-# Command to start the container (e.g., for RStudio server or a shell)
+# Start RStudio Server when the container runs
 CMD ["/usr/lib/rstudio-server/bin/rserver", "--server-daemonize", "false"]
