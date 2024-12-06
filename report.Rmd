@@ -13,14 +13,21 @@ Note: This data was obtained from the Open Access Series of Imaging Studies (OAS
 ```{r}
 install.packages("kableExtra")
 install.packages("knitr")
+install.packages("ggplot2")
+install.packages("gridExtra")
+install.packages("grid")
+install.packages("dplyr")
+install.packages("tidyr")
+install.packages("kableExtra")
+install.packages("knitr")
 ```
 
 
 LOADING LIBRARIES
 ```{r}
 library(ggplot2)
-library(gridExtra)  # For adding table to the plot
-library(grid)  # For drawing the table
+library(gridExtra)
+library(grid) 
 library(dplyr)
 library(tidyr)
 library(kableExtra)
@@ -400,6 +407,7 @@ COLLECTED DATA
 ```{r}
 readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/mmse_stats.rds");
 readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/mr_stats.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/nWBV_stats.rds");
 readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/eTIV_stats.rds");
 readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/ASF_stats.rds");
 ```
@@ -415,13 +423,13 @@ It was expected for years of education to decrease as Hollingshead Index of Soci
 AGE AND CDR
 It was expected for CDR to increase with age. The CDR is a 0-3 scale, with severe cognitive impairment being a 3. This dataset had CDR values ranging 0-2, with only 3 participants at a score of a 2. From the ANOVA with the Tukey's HSD test, there were no significant differences found in the age of each CDR rating. However, it would be interesting to redo this study and see if any differences arise when including more participants with a CDR of 2-3. 
 
-Group and MMSE – more than likely, MMSE will be lower in the demented group.
-MMSE is scored 0-30, with over 25 being normal.
+GROUP AND MMSE 
+It was expected that MMSE would be lower in the demented group because the MMSE assesses cognitive impairment, where lower scores indicate more significant cognitive impairment. Through an ANOVA with Tukey's HSD test, it was found that the demented group was significantly different than both the converted and non-demented group with a p-value of 0. An interesting finding from this analysis is that the converted and non-demented group are not significantly different. This may be explained by higher MMSE scores due to patients being in the early stages of dementia and cognitive impairment, or that the MMSE was performed while these patients were still considered non-demented.
 
-ASF and Group – can you predict dementia from an MRI (based on the ASF)?
+nWBV AND AGE BY GROUP
+nWBV was shown to decline significantly with increasing age in previous studies, so this was analyzed separately by dementia group. All three groups had a linear correlation between nWBV and age, which confirmed that nWBV decreased with increasing age. The rates of decline were slightly different. The nondemented group showed a rate of decline at 0.0028 per year, whereas the converted group showed a 35% higher rate of decline than the nondemented group (0.0038 per year). This may be due to the converted group being in a more active cognitive decline. Interestingly, the demented group showed a lower rate of decline than both groups at 0.0019 per year, which may be due to that group having a lower nWBV to start. An interesting future analysis would be to reanalyze this data by percentage instead of raw value, to see if a different result shows for the demented group. 
+
 ```{r}
-colnames(oasis_data)
-
 # Age By Group 
   # Box Plot
 age_group_box <- ggplot(oasis_data, aes(x = Group, y = Age, fill = Group)) + 
@@ -515,12 +523,13 @@ saveRDS(age_cdr_tukey_table, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611P
 
 
 # MMSE By Group
+  # Data Cleaning
 oasis_data_clean <- oasis_data %>%
   filter(!is.na(MMSE), !is.infinite(MMSE), !is.na(Group), !is.infinite(Group))
-
+  # Box Plot
 mmse_group_box <- ggplot(oasis_data_clean, aes(x = Group, y = MMSE, fill = Group)) + 
   geom_boxplot() +
-  labs(title = "Box Plot of MMSE By Group", 
+  labs(title = "Box Plot of Mini Mental State Examination (MMSE) By Group", 
        x = "Group", 
        y = "MMSE") +
   scale_fill_manual(values = c("paleturquoise2", "olivedrab2", "gray80")) +
@@ -537,15 +546,73 @@ mmse_group_box <- ggplot(oasis_data_clean, aes(x = Group, y = MMSE, fill = Group
   annotate("text", x = 1.5, y = 30, label = "Normal Range", size = 4, 
            color = "black", fontface = "italic", hjust = -3.25, vjust = 5)
   # ANOVA and Tukey's HSD
-anova_result <- aov(MMSE ~ Group, data = oasis_data)
-summary(anova_result)
-tukey_result <- TukeyHSD(anova_result)
-mmse_group_tukey_table <- as.data.frame(tukey_result$MMSE)
-mmse_group_tukey_table
+mmse_anova_result <- aov(MMSE ~ Group, data = oasis_data_clean)
+summary(mmse_anova_result)
+mmse_tukey_result <- TukeyHSD(mmse_anova_result)
+mmse_tukey_result
+mmse_group_tukey_table <- as.data.frame(mmse_tukey_result$Group)
   # Save RDS
-saveRDS(mmse_group_box, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_group_box.rds");
-saveRDS(mmse_group_tukey_table, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_group_anova.rds");
+saveRDS(mmse_group_box, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/mmse_group_box.rds");
+saveRDS(mmse_group_tukey_table, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/mmse_group_anova.rds");
 
+
+# nWBV and Age By Dementia Group
+  # Combined plot
+intercept_non_demented <- format(coef(model_non_demented)[1], scientific = FALSE, digits = 3)
+slope_non_demented <- format(coef(model_non_demented)[2], scientific = TRUE, digits = 3)
+
+intercept_demented <- format(coef(model_demented)[1], scientific = FALSE, digits = 3)
+slope_demented <- format(coef(model_demented)[2], scientific = TRUE, digits = 3)
+
+intercept_converted <- format(coef(model_converted)[1], scientific = FALSE, digits = 3)
+slope_converted <- format(coef(model_converted)[2], scientific = TRUE, digits = 3)
+
+oasis_data_clean2 <- oasis_data %>%
+  filter(!is.na(nWBV), !is.infinite(nWBV), !is.na(Group), !is.infinite(Group), !is.na(Age), !is.infinite(Age))
+
+nWBV_age_group_reg <- ggplot(oasis_data_clean2, aes(x = Age, y = nWBV, color = Group)) +
+  geom_point(size = 2, alpha = 0.6) +  
+  geom_smooth(method = "lm", se = FALSE, aes(color = Group), linetype = "solid") + 
+  
+  annotate("text", x = 89.17, y = 0.85, label = paste("Converted: y =", intercept_converted, 
+                                                 "+", slope_converted, "* x"), size = 4, color = "black") +
+  annotate("text", x = 89.5, y = 0.83, label = paste("Demented: y =", intercept_demented, 
+                                                 "+", slope_demented, "* x"), size = 4, color = "black") +
+  annotate("text", x = 90, y = 0.81, label = paste("Nondemented: y =", intercept_non_demented, 
+                                                 "+", slope_non_demented, "* x"), size = 4, color = "black") +
+  labs(title = "Linear Regression for Normalized Whole Brain Volume (nWBV) by Age and Group",
+       x = "Age",
+       y = "nWBV",
+       color = "Group") + 
+  scale_color_manual(values = c("Nondemented" = "firebrick", "Demented" = "dodgerblue3", "Converted" = "green4")) + 
+  theme_minimal() +  
+  theme(legend.position = "top",  
+        plot.title = element_text(hjust = 0.5, face = "bold", size = 12)) +
+  xlim(60, 98) +  
+  ylim(0.62, 0.85) 
+  # Results table
+slope_non_demented <- coef(model_non_demented)[2]
+intercept_non_demented <- coef(model_non_demented)[1]
+f_stat_non_demented <- summary(model_non_demented)$fstatistic[1]
+p_value_non_demented <- summary(model_non_demented)$coefficients[2, 4]
+slope_demented <- coef(model_demented)[2]
+intercept_demented <- coef(model_demented)[1]
+f_stat_demented <- summary(model_demented)$fstatistic[1]
+p_value_demented <- summary(model_demented)$coefficients[2, 4]
+slope_converted <- coef(model_converted)[2]
+intercept_converted <- coef(model_converted)[1]
+f_stat_converted <- summary(model_converted)$fstatistic[1]
+p_value_converted <- summary(model_converted)$coefficients[2, 4]
+regression_results <- data.frame(
+  Group = c("Non-demented", "Demented", "Converted"),
+  Intercept = c(intercept_non_demented, intercept_demented, intercept_converted),
+  Slope = c(slope_non_demented, slope_demented, slope_converted),
+  F_Statistic = c(f_stat_non_demented, f_stat_demented, f_stat_converted),
+  P_Value = c(p_value_non_demented, p_value_demented, p_value_converted)
+)
+# Save RDS
+saveRDS(nWBV_age_group_reg, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/nWBV_age_group_reg.rds");
+saveRDS(regression_results, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/nWBV_age_group_regression_results.rds");
 
 ```
 ```{r}
@@ -555,20 +622,16 @@ readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/educ_ses_re
 readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_cdr_box.rds");
 readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_cdr_anova.rds");
 readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_cdr_stats.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_group_box.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_group_anova.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/mmse_group_box.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/mmse_group_anova.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/nWBV_age_group_reg.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/nWBV_age_group_regression_results.rds");
 ```
 
-
-Age and group – would be interesting to see if there’s a difference in groups despite the
-study trying to keep them consistent.
-Socioeconomic status and years of education – would be interesting to see the
-correlation, and see if there were outliers.
-Age and CDR – would be interesting to see if CDR increases with age. The CDR is a 0-
-3 scale, with severe cognitive impairment being a 3.
-Group and MMSE – more than likely, MMSE will be lower in the demented group.
-MMSE is scored 0-30, with over 25 being normal.
-ASF and Group – can you predict dementia from an MRI (based on the ASF)?
-
-
 # Conclusion
+
+Significant Results
+The age of the converted group was significantly different than the age of the demented group with a p-value of 0.034, but no other comparisons from that analysis were significant. Years of education do in fact decrease as Hollingshead Index of Social Position increases, as the model obtained through linear regression was statistically significant with a p-value of 2.2e-16. There were no significant differences in age by clinical dementia rating, but it should be noted that there was an underrepresentation of patients with a CDR of 2-3. It was found that the MMSE score of the demented group was significantly different than both the converted and non-demented group with a p-value of 0. The converted and non-demented group are not significantly different in terms of MMSE score. All three groups (nondemented, demented, converted) had a negative linear correlation between nWBV and age, which confirmed that nWBV decreased with increasing age. Of the three groups, the converted group showed a the largest rate of decline, and the demented group showed the smallest rate of decline.
+
+Future Directions
+It would be interesting to redo this study and see if any differences in age arise when including more participants with a CDR of 2-3. The normalized whole brain volume data vs. age analysis by group should be redone by using a percentage or normalizing the y-axis due to the demented group's lower starting nWBV to see if there is a larger rate of decline. 

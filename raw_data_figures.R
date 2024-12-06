@@ -60,7 +60,7 @@ mmse_stats <- p + annotation_custom(grob = table_grob,
     plot.margin = margin(t = 10, r = 10, b = 10, l = 10)  # Keep margins small, but ensure plot area is large enough
   )
 # Save RDS
-saveRDS(mmse_stats, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/mmse_stats.rds");
+saveRDS(mmse_stats, file="/home/rstudio/RJENKI_BIOS611Project/figures/mmse_stats.rds");
 
 
 # MR Delay variable calculations and figure generation
@@ -91,7 +91,7 @@ table_grob <- tableGrob(mr_stats, rows = NULL, theme = ttheme_minimal())
 mr_stats <- p + annotation_custom(grob = table_grob, 
                                   xmin = 1250, xmax = Inf, ymin = 0, ymax = 190)
 # Save RDS
-saveRDS(mr_stats, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/mr_stats.rds");
+saveRDS(mr_stats, file="/home/rstudio/RJENKI_BIOS611Project/figures/mr_stats.rds");
 
 
 # eTIV Delay variable calculations and figure generation
@@ -122,7 +122,7 @@ table_grob <- tableGrob(eTIV_stats, rows = NULL, theme = ttheme_minimal())
 eTIV_stats <- p + annotation_custom(grob = table_grob, 
                                     xmin = 1700, xmax = Inf, ymin = 0, ymax = 130)
 # Save RDS
-saveRDS(eTIV_stats, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/eTIV_stats.rds");
+saveRDS(eTIV_stats, file="/home/rstudio/RJENKI_BIOS611Project/figures/eTIV_stats.rds");
 
 
 # nWBV Delay variable calculations and figure generation
@@ -153,7 +153,7 @@ table_grob <- tableGrob(nWBV_stats, rows = NULL, theme = ttheme_minimal())
 nWBV_stats <- p + annotation_custom(grob = table_grob, 
                                     xmin = Inf, xmax = 0.75, ymin = Inf, ymax = 35)
 # Save RDS
-saveRDS(nWBV_stats, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/nWBV_stats.rds");
+saveRDS(nWBV_stats, file="/home/rstudio/RJENKI_BIOS611Project/figures/nWBV_stats.rds");
 
 
 # ASF Delay variable calculations and figure generation
@@ -184,11 +184,11 @@ table_grob <- tableGrob(ASF_stats, rows = NULL, theme = ttheme_minimal())
 ASF_stats <- p + annotation_custom(grob = table_grob, 
                                    xmin = Inf, xmax = 1.35, ymin = Inf, ymax = 35)
 # Save RDS
-saveRDS(ASF_stats, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/ASF_stats.rds");
+saveRDS(ASF_stats, file="/home/rstudio/RJENKI_BIOS611Project/figures/ASF_stats.rds");
 
 # Raw data figures
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/mmse_stats.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/mr_stats.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/nWBV_stats.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/eTIV_stats.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/ASF_stats.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/mmse_stats.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/mr_stats.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/nWBV_stats.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/eTIV_stats.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/ASF_stats.rds");

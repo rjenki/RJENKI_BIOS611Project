@@ -35,7 +35,7 @@ table_grob <- tableGrob(age_stats, rows = NULL, theme = ttheme_minimal())
 age_stats <- p + annotation_custom(grob = table_grob, 
                                    xmin = 88, xmax = Inf, ymin = 0, ymax = 55)
 # Save RDS
-saveRDS(age_stats, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_stats.rds");
+saveRDS(age_stats, file="/home/rstudio/RJENKI_BIOS611Project/figures/age_stats.rds");
 
 
 # EDUC Variable calculations and figure generation
@@ -66,7 +66,7 @@ table_grob <- tableGrob(educ_stats, rows = NULL, theme = ttheme_minimal())
 educ_stats <- p + annotation_custom(grob = table_grob, 
                                     xmin = 0, xmax = 15, ymin = 0, ymax = 190)
 # Save RDS
-saveRDS(educ_stats, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/educ_stats.rds");
+saveRDS(educ_stats, file="/home/rstudio/RJENKI_BIOS611Project/figures/educ_stats.rds");
 
 
 # CDR (Clinical Dementia Rating) bar chart
@@ -84,7 +84,7 @@ cdr_plot <- ggplot(oasis_data, aes(x = CDR)) +
     axis.text.x = element_text(angle = 0, hjust = 0.5),    
   )
 # Save RDS
-saveRDS(cdr_plot, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/cdr_plot.rds");
+saveRDS(cdr_plot, file="/home/rstudio/RJENKI_BIOS611Project/figures/cdr_plot.rds");
 
 
 # M.F bar chart
@@ -103,7 +103,7 @@ sex_plot <- ggplot(oasis_data, aes(x = M.F)) +
     axis.text.x = element_text(angle = 0, hjust = 0.5),    
   )
 # Save RDS
-saveRDS(sex_plot, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/sex_plot.rds");
+saveRDS(sex_plot, file="/home/rstudio/RJENKI_BIOS611Project/figures/sex_plot.rds");
 
 
 # Hand bar chart
@@ -125,7 +125,7 @@ hand_plot <- ggplot(hand_count, aes(x = Hand, y = n)) +
     axis.text.x = element_text(angle = 0, hjust = 0.5)
   )
 # Save RDS
-saveRDS(hand_plot, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/hand_plot.rds");
+saveRDS(hand_plot, file="/home/rstudio/RJENKI_BIOS611Project/figures/hand_plot.rds");
 
 
 # Group (Nondemeneted/Demented) bar chart
@@ -143,7 +143,7 @@ group_plot <- ggplot(oasis_data, aes(x = Group)) +
     axis.text.x = element_text(angle = 0, hjust = 0.5),    
   )
 # Save RDS
-saveRDS(group_plot, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/group_plot.rds");
+saveRDS(group_plot, file="/home/rstudio/RJENKI_BIOS611Project/figures/group_plot.rds");
 
 
 # SES bar chart
@@ -171,14 +171,14 @@ ses_plot <- ggplot(oasis_data, aes(x = SES)) +
     legend.position = "none"
   )
 # Save RDS
-saveRDS(ses_plot, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/ses_plot.rds");
+saveRDS(ses_plot, file="/home/rstudio/RJENKI_BIOS611Project/figures/ses_plot.rds");
 
 
 # Demographics figures
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_stats.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/educ_stats.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/cdr_plot.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/sex_plot.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/hand_plot.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/group_plot.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/ses_plot.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/age_stats.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/educ_stats.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/cdr_plot.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/sex_plot.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/hand_plot.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/group_plot.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/ses_plot.rds");

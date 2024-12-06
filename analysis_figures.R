@@ -17,8 +17,8 @@ summary(anova_result)
 tukey_result <- TukeyHSD(anova_result)
 age_group_tukey_table <- as.data.frame(tukey_result$Group)
 # Save RDS
-saveRDS(age_group_box, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_group_box.rds");
-saveRDS(age_group_tukey_table, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_group_anova.rds");
+saveRDS(age_group_box, file="/home/rstudio/RJENKI_BIOS611Project/figures/age_group_box.rds");
+saveRDS(age_group_tukey_table, file="/home/rstudio/RJENKI_BIOS611Project/figures/age_group_anova.rds");
 
 
 # Education By SES
@@ -55,7 +55,7 @@ educ_ses_reg <- ggplot(oasis_data_clean, aes(x = SES, y = EDUC, color = factor(S
   annotate("text", x = max(oasis_data_clean$SES) - 1, y = max(oasis_data_clean$EDUC) - 5, 
            label = stat_label, size = 4, color = "black", hjust = 0, vjust = 0)
 # Save RDS
-saveRDS(educ_ses_reg, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/educ_ses_reg.rds");
+saveRDS(educ_ses_reg, file="/home/rstudio/RJENKI_BIOS611Project/figures/educ_ses_reg.rds");
 
 
 # Age by CDR
@@ -85,9 +85,9 @@ summary(anova_result)
 tukey_result <- TukeyHSD(anova_result)
 age_cdr_tukey_table <- as.data.frame(tukey_result$CDR)
 # Save RDS
-saveRDS(age_cdr_stats, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_cdr_stats.rds");
-saveRDS(age_cdr_box, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_cdr_box.rds");
-saveRDS(age_cdr_tukey_table, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_cdr_anova.rds");
+saveRDS(age_cdr_stats, file="/home/rstudio/RJENKI_BIOS611Project/figures/age_cdr_stats.rds");
+saveRDS(age_cdr_box, file="/home/rstudio/RJENKI_BIOS611Project/figures/age_cdr_box.rds");
+saveRDS(age_cdr_tukey_table, file="/home/rstudio/RJENKI_BIOS611Project/figures/age_cdr_anova.rds");
 
 
 # MMSE By Group
@@ -120,8 +120,8 @@ mmse_tukey_result <- TukeyHSD(mmse_anova_result)
 mmse_tukey_result
 mmse_group_tukey_table <- as.data.frame(mmse_tukey_result$Group)
 # Save RDS
-saveRDS(mmse_group_box, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/mmse_group_box.rds");
-saveRDS(mmse_group_tukey_table, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/mmse_group_anova.rds");
+saveRDS(mmse_group_box, file="/home/rstudio/RJENKI_BIOS611Project/figures/mmse_group_box.rds");
+saveRDS(mmse_group_tukey_table, file="/home/rstudio/RJENKI_BIOS611Project/figures/mmse_group_anova.rds");
 
 
 # nWBV and Age By Dementia Group
@@ -179,17 +179,17 @@ regression_results <- data.frame(
   P_Value = c(p_value_non_demented, p_value_demented, p_value_converted)
 )
 # Save RDS
-saveRDS(nWBV_age_group_reg, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/nWBV_age_group_reg.rds");
-saveRDS(regression_results, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/nWBV_age_group_regression_results.rds");
+saveRDS(nWBV_age_group_reg, file="/home/rstudio/RJENKI_BIOS611Project/figures/nWBV_age_group_reg.rds");
+saveRDS(regression_results, file="/home/rstudio/RJENKI_BIOS611Project/figures/nWBV_age_group_regression_results.rds");
 
 # Analysis figures
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_group_box.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_group_anova.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/educ_ses_reg.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_cdr_box.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_cdr_anova.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_cdr_stats.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/mmse_group_box.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/mmse_group_anova.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/nWBV_age_group_reg.rds");
-readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/nWBV_age_group_regression_results.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/age_group_box.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/age_group_anova.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/educ_ses_reg.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/age_cdr_box.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/age_cdr_anova.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/age_cdr_stats.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/mmse_group_box.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/mmse_group_anova.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/nWBV_age_group_reg.rds");
+readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/nWBV_age_group_regression_results.rds");
