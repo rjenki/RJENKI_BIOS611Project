@@ -6,7 +6,569 @@ output: pdf_document
 ---
 
 # Introduction
+The Oasis Longitudinal data set consists of 150 participants, aged 60 to 96, who received an MRI scan on two or more visits, each visit separated by at least a year. The cognitive status (demented/non demented) was documented throughout the study.
 
+Note: This data was obtained from the Open Access Series of Imaging Studies (OASIS), which is comprised by data made available from the Washington University Alzheimer’s Disease Research Center, Dr. Randy Buckner at the Howard Hughes Medical Institute (HHMI) at Harvard University, the Neuroinformatics Research Group (NRG) at Washington University School of Medicine, and the Biomedical Informatics Research Network (BIRN).
+
+```{r}
+install.packages("kableExtra")
+install.packages("knitr")
+```
+
+
+LOADING LIBRARIES
+```{r}
+library(ggplot2)
+library(gridExtra)  # For adding table to the plot
+library(grid)  # For drawing the table
+library(dplyr)
+library(tidyr)
+library(kableExtra)
+library(knitr)
+```
+
+IMPORTING DATA
+```{r}
+oasis_data <- read.csv("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/data/oasis_longitudinal.csv")
+```
+
+First, the demographics and collected data of study are shown below.
+
+DEMOGRAPHICS FIGURE GENERATION CODE
+```{r}
+# AGE Variable calculations and figure generation
+  # Calculations of age summary statistics
+mean_age <- mean(oasis_data$Age, na.rm = TRUE)
+median_age <- median(oasis_data$Age, na.rm = TRUE)
+min_age <- min(oasis_data$Age, na.rm = TRUE)
+q1_age <- quantile(oasis_data$Age, 0.25, na.rm = TRUE)
+q3_age <- quantile(oasis_data$Age, 0.75, na.rm = TRUE)
+max_age <- max(oasis_data$Age, na.rm = TRUE)
+  # Data frame to hold the results
+age_stats <- data.frame(
+  Statistic = c("Mean", "Median", "Min", "Q1", "Q3", "Max"),
+  Value = c(mean_age, median_age, min_age, q1_age, q3_age, max_age)
+)
+  # Histogram for age
+p <- ggplot(oasis_data, aes(x = Age)) +
+  geom_histogram(binwidth = 2, fill = "skyblue", color = "black", alpha = 0.7) +
+  labs(title = "Age Distribution with Summary Statistics",
+       x = "Age (Years)", y = "Frequency") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold") 
+  )
+  # Table of summary statistics
+table_grob <- tableGrob(age_stats, rows = NULL, theme = ttheme_minimal())
+  # Combining the histogram and table
+age_stats <- p + annotation_custom(grob = table_grob, 
+                     xmin = 88, xmax = Inf, ymin = 0, ymax = 55)
+  # Save RDS
+saveRDS(age_stats, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_stats.rds");
+
+
+# EDUC Variable calculations and figure generation
+  # Calculations of education summary statistics
+mean_educ <- mean(oasis_data$EDUC, na.rm = TRUE)
+median_educ <- median(oasis_data$EDUC, na.rm = TRUE)
+min_educ <- min(oasis_data$EDUC, na.rm = TRUE)
+q1_educ <- quantile(oasis_data$EDUC, 0.25, na.rm = TRUE)
+q3_educ <- quantile(oasis_data$EDUC, 0.75, na.rm = TRUE)
+max_educ <- max(oasis_data$EDUC, na.rm = TRUE)
+  # Data frame to hold the results
+educ_stats <- data.frame(
+  Statistic = c("Mean", "Median", "Min", "Q1", "Q3", "Max"),
+  Value = c(mean_educ, median_educ, min_educ, q1_educ, q3_educ, max_educ)
+)
+  # Histogram for age
+p <- ggplot(oasis_data, aes(x = EDUC)) +
+  geom_histogram(binwidth = 2, fill = "lightgreen", color = "black", alpha = 0.7) +
+  labs(title = "Years of Education Distribution with Summary Statistics",
+       x = "Education (Years)", y = "Frequency") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold") 
+  )
+  # Table of summary statistics
+table_grob <- tableGrob(educ_stats, rows = NULL, theme = ttheme_minimal())
+  # Combining the histogram and table
+educ_stats <- p + annotation_custom(grob = table_grob, 
+                     xmin = 0, xmax = 15, ymin = 0, ymax = 190)
+  # Save RDS
+saveRDS(educ_stats, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/educ_stats.rds");
+
+
+# CDR (Clinical Dementia Rating) bar chart
+  # Creating bar chart for CDR
+cdr_plot <- ggplot(oasis_data, aes(x = CDR)) +
+  geom_bar(fill = "lightgrey", color = "black", alpha = 0.7) +
+  geom_text(stat = "count", aes(label = after_stat(count)), 
+            vjust = -0.5, size = 3.5) +
+  labs(title = "Clinical Dementia Rating (CDR)", 
+       x = "Clinical Dementia Rating", 
+       y = "Count") +
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),  
+    axis.text.x = element_text(angle = 0, hjust = 0.5),    
+  )
+  # Save RDS
+saveRDS(cdr_plot, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/cdr_plot.rds");
+
+
+# M.F bar chart
+  # Creating bar chart for CDR
+sex_plot <- ggplot(oasis_data, aes(x = M.F)) +
+  geom_bar(fill = "aquamarine2", color = "black", alpha = 0.7) + 
+  geom_text(stat = "count", aes(label = after_stat(count)), 
+            vjust = -0.5, size = 3.5) + 
+  labs(title = "Sex of Participants", 
+       x = "Sex", 
+       y = "Count") +
+  scale_x_discrete(labels = c("M" = "Male", "F" = "Female")) +
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),  
+    axis.text.x = element_text(angle = 0, hjust = 0.5),    
+  )
+  # Save RDS
+saveRDS(sex_plot, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/sex_plot.rds");
+
+
+# Hand bar chart
+hand_count <- oasis_data %>%
+  count(Hand) %>%
+  mutate(Hand = factor(Hand, levels = c("R", "L"))) %>%
+  complete(Hand, fill = list(n = 0))
+  # Adding L level because there are no left handed participants
+hand_plot <- ggplot(hand_count, aes(x = Hand, y = n)) +
+  geom_bar(stat = "identity", fill = "darkolivegreen2", color = "black", alpha = 0.7) + 
+  geom_text(aes(label = n), vjust = -0.5, size = 3.5) + 
+  labs(title = "Dominant Hand of Participants", 
+       x = "Dominant Hand", 
+       y = "Count") +
+  scale_x_discrete(labels = c("R" = "Right", "L" = "Left")) + 
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),  
+    axis.text.x = element_text(angle = 0, hjust = 0.5)
+  )
+  # Save RDS
+saveRDS(hand_plot, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/hand_plot.rds");
+
+
+# Group (Nondemeneted/Demented) bar chart
+  # Creating bar chart for group
+group_plot <- ggplot(oasis_data, aes(x = Group)) +
+  geom_bar(fill = "azure3", color = "black", alpha = 0.7) +
+  geom_text(stat = "count", aes(label = after_stat(count)), 
+            vjust = -0.5, size = 3.5) +
+  labs(title = "Dementia Status of Participants", 
+       x = "Dementia Status", 
+       y = "Count") +
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),  
+    axis.text.x = element_text(angle = 0, hjust = 0.5),    
+  )
+  # Save RDS
+saveRDS(group_plot, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/group_plot.rds");
+
+
+# SES bar chart
+oasis_data$alpha_value <- ifelse(oasis_data$SES == "Missing", 0.5, 0.7)
+fill_colors <- c("Missing" = "deepskyblue", 
+                 "1" = "deepskyblue",    
+                 "2" = "deepskyblue",
+                 "3" = "deepskyblue",
+                 "4" = "deepskyblue",
+                 "5" = "deepskyblue")
+
+ses_plot <- ggplot(oasis_data, aes(x = SES)) +
+  geom_bar(aes(fill = SES, alpha = alpha_value), color = "black") +  
+  geom_text(stat = "count", aes(label = after_stat(count)), 
+            vjust = -0.5, size = 3.5) +
+  labs(title = "Socioeconomic Status of Participants", 
+       x = "Hollingshead Index of Social Position", 
+       y = "Count") +
+  scale_x_discrete(labels = c("1" = "1 (Highest Status)", "5" = "5 (Lowest Status)")) +
+  scale_fill_manual(values = fill_colors) + 
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),  
+    axis.text.x = element_text(angle = 0, hjust = 0.5),  
+    legend.position = "none"
+  )
+  # Save RDS
+saveRDS(ses_plot, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/ses_plot.rds");
+```
+
+DEMOGRAPHICS FIGURES
+```{r}
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_stats.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/educ_stats.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/cdr_plot.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/sex_plot.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/hand_plot.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/group_plot.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/ses_plot.rds");
+```
+
+COLLECTED DATA FIGURE GENERATION CODE
+```{r}
+# MMSE variable calculations and figure generation
+  # Remove rows with missing values
+oasis_data_clean <- oasis_data %>% filter(!is.na(MMSE))
+  # Create Normal/Not Normal category
+oasis_data_clean$MMSE_category <- ifelse(oasis_data_clean$MMSE >= 25, "Normal", "Not Normal")
+  # Calculate MMSE summary statistics 
+mean_mmse <- mean(oasis_data_clean$MMSE, na.rm = TRUE)
+median_mmse <- median(oasis_data_clean$MMSE, na.rm = TRUE)
+min_mmse <- min(oasis_data_clean$MMSE, na.rm = TRUE)
+q1_mmse <- quantile(oasis_data_clean$MMSE, 0.25, na.rm = TRUE)
+q3_mmse <- quantile(oasis_data_clean$MMSE, 0.75, na.rm = TRUE)
+max_mmse <- max(oasis_data_clean$MMSE, na.rm = TRUE)
+  # Create data frame
+mmse_stats <- data.frame(
+  Statistic = c("Mean", "Median", "Min", "Q1", "Q3", "Max"),
+  Value = c(mean_mmse, median_mmse, min_mmse, q1_mmse, q3_mmse, max_mmse)
+)
+  # Histogram for MMSE 
+p <- ggplot(oasis_data_clean, aes(x = MMSE, fill = MMSE_category)) +
+  geom_histogram(binwidth = 2, color = "black", alpha = 0.7, position = "identity") +
+  scale_fill_manual(values = c("Normal" = "paleturquoise", "Not Normal" = "lightseagreen")) + 
+  labs(
+    title = "Mini Mental State Examination Distribution with Summary Statistics",
+    subtitle = "MMSE values classified as normal (≥ 25) and not normal (< 25)",  
+    x = "MMSE",
+    y = "Frequency",
+    fill = "MMSE Category"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    plot.subtitle = element_text(hjust = 0.5, face = "italic", size = 10),
+    legend.position = "right",
+    plot.margin = margin(t = 10, r = 10, b = 100, l = 10) 
+  )
+  # Create table
+table_grob <- tableGrob(mmse_stats, rows = NULL, theme = ttheme_minimal())
+  # Combine histogram and table
+mmse_stats <- p + annotation_custom(grob = table_grob, 
+                                    xmin = 88, xmax = Inf, ymin = 0, ymax = 55) +
+  annotation_custom(
+    grob = textGrob("Two data points removed due to missing MMSE value.", 
+                    x = 0.5, y = -0.1, gp = gpar(fontsize = 9, fontface = "italic")),
+    xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = -Inf
+  ) +
+  coord_cartesian(clip = "off") +  # Prevent clipping of annotation
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    plot.subtitle = element_text(hjust = 0.5, face = "italic", size = 10),
+    legend.position = "right",
+    plot.margin = margin(t = 10, r = 10, b = 10, l = 10)  # Keep margins small, but ensure plot area is large enough
+  )
+  # Save RDS
+saveRDS(mmse_stats, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/mmse_stats.rds");
+
+
+# MR Delay variable calculations and figure generation
+  # Calculations of education summary statistics
+mean_mr <- mean(oasis_data$MR.Delay, na.rm = TRUE)
+median_mr <- median(oasis_data$MR.Delay, na.rm = TRUE)
+min_mr <- min(oasis_data$MR.Delay, na.rm = TRUE)
+q1_mr <- quantile(oasis_data$MR.Delay, 0.25, na.rm = TRUE)
+q3_mr <- quantile(oasis_data$MR.Delay, 0.75, na.rm = TRUE)
+max_mr <- max(oasis_data$MR.Delay, na.rm = TRUE)
+  # Data frame to hold the results
+mr_stats <- data.frame(
+  Statistic = c("Mean", "Median", "Min", "Q1", "Q3", "Max"),
+  Value = c(mean_mr, median_mr, min_mr, q1_mr, q3_mr, max_mr)
+)
+  # Histogram for age
+p <- ggplot(oasis_data, aes(x = MR.Delay)) +
+  geom_histogram(binwidth = 100, fill = "lightgreen", color = "black", alpha = 0.7) +
+  labs(title = "MR Delay Time (Contrast) Distribution with Summary Statistics",
+       x = "Time (Days)", y = "Frequency") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold") 
+  )
+  # Table of summary statistics
+table_grob <- tableGrob(mr_stats, rows = NULL, theme = ttheme_minimal())
+  # Combining the histogram and table
+mr_stats <- p + annotation_custom(grob = table_grob, 
+                     xmin = 1250, xmax = Inf, ymin = 0, ymax = 190)
+  # Save RDS
+saveRDS(mr_stats, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/mr_stats.rds");
+
+
+# eTIV Delay variable calculations and figure generation
+  # Calculations of education summary statistics
+mean_eTIV <- mean(oasis_data$eTIV, na.rm = TRUE)
+median_eTIV <- median(oasis_data$eTIV, na.rm = TRUE)
+min_eTIV <- min(oasis_data$eTIV, na.rm = TRUE)
+q1_eTIV <- quantile(oasis_data$eTIV, 0.25, na.rm = TRUE)
+q3_eTIV <- quantile(oasis_data$eTIV, 0.75, na.rm = TRUE)
+max_eTIV <- max(oasis_data$eTIV, na.rm = TRUE)
+  # Data frame to hold the results
+eTIV_stats <- data.frame(
+  Statistic = c("Mean", "Median", "Min", "Q1", "Q3", "Max"),
+  Value = c(mean_eTIV, median_eTIV, min_eTIV, q1_eTIV, q3_eTIV, max_eTIV)
+)
+  # Histogram for age
+p <- ggplot(oasis_data, aes(x = eTIV)) +
+  geom_histogram(binwidth = 100, fill = "gray82", color = "black", alpha = 0.7) +
+  labs(title = "Estimated Total Intracranial Volume Distribution with Summary Statistics",
+       x = expression("eTIV ("* "cm"^3 * ")"), y = "Frequency") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold") 
+  )
+  # Table of summary statistics
+table_grob <- tableGrob(eTIV_stats, rows = NULL, theme = ttheme_minimal())
+  # Combining the histogram and table
+eTIV_stats <- p + annotation_custom(grob = table_grob, 
+                     xmin = 1700, xmax = Inf, ymin = 0, ymax = 130)
+  # Save RDS
+saveRDS(eTIV_stats, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/eTIV_stats.rds");
+
+
+# nWBV Delay variable calculations and figure generation
+  # Calculations of education summary statistics
+mean_nWBV <- mean(oasis_data$nWBV, na.rm = TRUE)
+median_nWBV <- median(oasis_data$nWBV, na.rm = TRUE)
+min_nWBV <- min(oasis_data$nWBV, na.rm = TRUE)
+q1_nWBV <- quantile(oasis_data$nWBV, 0.25, na.rm = TRUE)
+q3_nWBV <- quantile(oasis_data$nWBV, 0.75, na.rm = TRUE)
+max_nWBV <- max(oasis_data$nWBV, na.rm = TRUE)
+  # Data frame to hold the results
+nWBV_stats <- data.frame(
+  Statistic = c("Mean", "Median", "Min", "Q1", "Q3", "Max"),
+  Value = c(mean_nWBV, median_nWBV, min_nWBV, q1_nWBV, q3_nWBV, max_nWBV)
+)
+  # Histogram for age
+p <- ggplot(oasis_data, aes(x = nWBV)) +
+  geom_histogram(binwidth = 0.02, fill = "greenyellow", color = "black", alpha = 0.7) +
+  labs(title = "Normalize Whole Brain Volume Distribution with Summary Statistics",
+       x = "Percent of Voxels Labeled as Gray/White Matter", y = "Frequency") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold") 
+  )
+  # Table of summary statistics
+table_grob <- tableGrob(nWBV_stats, rows = NULL, theme = ttheme_minimal())
+  # Combining the histogram and table
+nWBV_stats <- p + annotation_custom(grob = table_grob, 
+                     xmin = Inf, xmax = 0.75, ymin = Inf, ymax = 35)
+  # Save RDS
+saveRDS(nWBV_stats, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/nWBV_stats.rds");
+
+
+# ASF Delay variable calculations and figure generation
+  # Calculations of ASF summary statistics
+mean_ASF <- mean(oasis_data$ASF, na.rm = TRUE)
+median_ASF <- median(oasis_data$ASF, na.rm = TRUE)
+min_ASF <- min(oasis_data$ASF, na.rm = TRUE)
+q1_ASF <- quantile(oasis_data$ASF, 0.25, na.rm = TRUE)
+q3_ASF <- quantile(oasis_data$ASF, 0.75, na.rm = TRUE)
+max_ASF <- max(oasis_data$ASF, na.rm = TRUE)
+  # Data frame to hold the results
+ASF_stats <- data.frame(
+  Statistic = c("Mean", "Median", "Min", "Q1", "Q3", "Max"),
+  Value = c(mean_ASF, median_ASF, min_ASF, q1_ASF, q3_ASF, max_ASF)
+)
+  # Histogram for age
+p <- ggplot(oasis_data, aes(x = ASF)) +
+  geom_histogram(binwidth = 0.1, fill = "steelblue1", color = "black", alpha = 0.7) +
+  labs(title = "Atlas Scaling Factor Distribution with Summary Statistics",
+       x = "Atlas Scaling Factor (Unitless)", y = "Frequency") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold") 
+  )
+  # Table of summary statistics
+table_grob <- tableGrob(ASF_stats, rows = NULL, theme = ttheme_minimal())
+  # Combining the histogram and table
+ASF_stats <- p + annotation_custom(grob = table_grob, 
+                     xmin = Inf, xmax = 1.35, ymin = Inf, ymax = 35)
+  # Save RDS
+saveRDS(ASF_stats, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/ASF_stats.rds");
+```
+
+COLLECTED DATA
+```{r}
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/mmse_stats.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/mr_stats.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/eTIV_stats.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/ASF_stats.rds");
+```
 # Analysis
+Next, a few interesting connections will be analyzed.
+
+AGE AND DEMENTIA GROUP
+The first is age and group (demented/non-demented). Though these patients are 60 and older, it was expected that the demented group would be older than the non-demented group, especially because some patients changed groups from non-demented to demented over the course of the study. However, it was found that the non-demented and demented groups were not significantly different in age, but the converted group was significantly different than the demented group  with a p-value of 0.034, through the Tukey's HSD test.
+
+SES AND EDUCATION
+It was expected for years of education to decrease as Hollingshead Index of Social Position increases, because the status decreases with increasing Hollingshead Index of Social Position, where 1 is the highest status and 5 is the lowest. A linear regression was performed and as expected, the model was statistically significant with a p-value of 2.2e-16, showing that the predicted years of education decrease with decreasing socioeconomic status.
+
+AGE AND CDR
+It was expected for CDR to increase with age. The CDR is a 0-3 scale, with severe cognitive impairment being a 3. This dataset had CDR values ranging 0-2, with only 3 participants at a score of a 2. From the ANOVA with the Tukey's HSD test, there were no significant differences found in the age of each CDR rating. However, it would be interesting to redo this study and see if any differences arise when including more participants with a CDR of 2-3. 
+
+Group and MMSE – more than likely, MMSE will be lower in the demented group.
+MMSE is scored 0-30, with over 25 being normal.
+
+ASF and Group – can you predict dementia from an MRI (based on the ASF)?
+```{r}
+colnames(oasis_data)
+
+# Age By Group 
+  # Box Plot
+age_group_box <- ggplot(oasis_data, aes(x = Group, y = Age, fill = Group)) + 
+  geom_boxplot() +
+  labs(title = "Box Plot of Age by Group", 
+       x = "Group", 
+       y = "Age") +
+  scale_fill_manual(values = c("paleturquoise2", "olivedrab2", "gray80")) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",  
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16)  
+  )
+  # ANOVA and Tukey's HSD
+anova_result <- aov(Age ~ Group, data = oasis_data)
+summary(anova_result)
+tukey_result <- TukeyHSD(anova_result)
+age_group_tukey_table <- as.data.frame(tukey_result$Group)
+  # Save RDS
+saveRDS(age_group_box, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_group_box.rds");
+saveRDS(age_group_tukey_table, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_group_anova.rds");
+
+
+# Education By SES
+  # Linear Regression
+    # Removing missing data
+oasis_data_clean <- oasis_data[!is.na(oasis_data$SES) & !is.na(oasis_data$EDUC), ]
+oasis_data_clean$SES <- as.numeric(as.character(oasis_data_clean$SES))
+    # Model
+model <- lm(EDUC ~ SES, data = oasis_data_clean)
+summary(model)
+intercept <- coef(model)[1]
+slope <- coef(model)[2]
+f_value <- summary(model)$fstatistic[1]
+df1 <- summary(model)$fstatistic[2]
+df2 <- summary(model)$fstatistic[3]
+p_value <- pf(f_value, df1, df2, lower.tail = FALSE)
+    # Plot labels
+eq_label <- paste("y = ", round(intercept, 2), " + ", round(slope, 2), " * x")
+stat_label <- paste("F = ", round(f_value, 2), ", p = ", format.pval(p_value, digits = 4))
+    # Plot
+educ_ses_reg <- ggplot(oasis_data_clean, aes(x = SES, y = EDUC, color = factor(SES))) +
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, aes(group = 1), color = "black") + 
+  labs(title = "Linear Regression of Years of Education vs. Socioeconomic Status",
+       x = "Hollingshead Index of Social Position",
+       y = "Years of Education",
+       color = "SES") +
+  scale_x_discrete(labels = c("1" = "1 (Highest Status)", "5" = "5 (Lowest Status)")) +
+  theme_minimal() +
+  scale_color_brewer(palette = "Set1") +
+  theme(legend.position = "none", plot.title = element_text(hjust = 0.5, face = "bold", size = 14)) +  
+  annotate("text", x = max(oasis_data_clean$SES) - 1, y = max(oasis_data_clean$EDUC) - 3, 
+           label = eq_label, size = 4, color = "black", hjust = 0, vjust = 0) +
+  annotate("text", x = max(oasis_data_clean$SES) - 1, y = max(oasis_data_clean$EDUC) - 5, 
+           label = stat_label, size = 4, color = "black", hjust = 0, vjust = 0)
+  # Save RDS
+saveRDS(educ_ses_reg, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/educ_ses_reg.rds");
+
+
+# Age by CDR
+  # Mean and Count Table
+age_cdr_stats <- oasis_data %>%
+  group_by(CDR) %>%
+  summarise(
+    mean_age = mean(Age, na.rm = TRUE),  
+    count = n()                       
+  )
+  # Box Plot
+oasis_data$CDR <- as.factor(oasis_data$CDR)
+age_cdr_box <- ggplot(oasis_data, aes(x = CDR, y = Age, fill = CDR)) + 
+  geom_boxplot() +
+  labs(title = "Box Plot of Age by Clinical Dementia Rating", 
+       x = "Clinical Dementia Rating", 
+       y = "Age") +
+  scale_fill_manual(values = c("olivedrab1", "olivedrab2", "olivedrab3", "olivedrab4")) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",  
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16)  
+  )
+  # ANOVA and Tukey's HSD
+anova_result <- aov(Age ~ CDR, data = oasis_data)
+summary(anova_result)
+tukey_result <- TukeyHSD(anova_result)
+age_cdr_tukey_table <- as.data.frame(tukey_result$CDR)
+  # Save RDS
+saveRDS(age_cdr_stats, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_cdr_stats.rds");
+saveRDS(age_cdr_box, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_cdr_box.rds");
+saveRDS(age_cdr_tukey_table, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_cdr_anova.rds");
+
+
+# MMSE By Group
+oasis_data_clean <- oasis_data %>%
+  filter(!is.na(MMSE), !is.infinite(MMSE), !is.na(Group), !is.infinite(Group))
+
+mmse_group_box <- ggplot(oasis_data_clean, aes(x = Group, y = MMSE, fill = Group)) + 
+  geom_boxplot() +
+  labs(title = "Box Plot of MMSE By Group", 
+       x = "Group", 
+       y = "MMSE") +
+  scale_fill_manual(values = c("paleturquoise2", "olivedrab2", "gray80")) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",  
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16)  
+  ) +
+  geom_hline(yintercept = 25, linetype = "dashed", color = "red", linewidth = 1) +
+  # Add shaded region above Y = 25
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 25, ymax = Inf), 
+            fill = "lightblue", alpha = 0.01) +
+  # Add label for 'Normal Range'
+  annotate("text", x = 1.5, y = 30, label = "Normal Range", size = 4, 
+           color = "black", fontface = "italic", hjust = -3.25, vjust = 5)
+  # ANOVA and Tukey's HSD
+anova_result <- aov(MMSE ~ Group, data = oasis_data)
+summary(anova_result)
+tukey_result <- TukeyHSD(anova_result)
+mmse_group_tukey_table <- as.data.frame(tukey_result$MMSE)
+mmse_group_tukey_table
+  # Save RDS
+saveRDS(mmse_group_box, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_group_box.rds");
+saveRDS(mmse_group_tukey_table, file="/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_group_anova.rds");
+
+
+```
+```{r}
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_group_box.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_group_anova.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/educ_ses_reg.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_cdr_box.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_cdr_anova.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_cdr_stats.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_group_box.rds");
+readRDS("/Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project/figures/age_group_anova.rds");
+```
+
+
+Age and group – would be interesting to see if there’s a difference in groups despite the
+study trying to keep them consistent.
+Socioeconomic status and years of education – would be interesting to see the
+correlation, and see if there were outliers.
+Age and CDR – would be interesting to see if CDR increases with age. The CDR is a 0-
+3 scale, with severe cognitive impairment being a 3.
+Group and MMSE – more than likely, MMSE will be lower in the demented group.
+MMSE is scored 0-30, with over 25 being normal.
+ASF and Group – can you predict dementia from an MRI (based on the ASF)?
+
 
 # Conclusion
