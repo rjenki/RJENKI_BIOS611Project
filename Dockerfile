@@ -38,4 +38,4 @@ EXPOSE 8787
 WORKDIR /home/rstudio
 
 # Command to start the container (e.g., for RStudio server or a shell)
-CMD ["/bin/bash"]
+CMD ["/usr/lib/rstudio-server/bin/rserver", "--server-daemonize", "false"]
