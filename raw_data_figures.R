@@ -4,7 +4,6 @@ library(gridExtra)
 library(grid) 
 library(dplyr)
 library(tidyr)
-library(kableExtra)
 library(knitr)
 
 # MMSE variable calculations and figure generation

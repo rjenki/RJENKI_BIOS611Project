@@ -1,3 +1,11 @@
+# Loading packages
+library(ggplot2)
+library(gridExtra)
+library(grid) 
+library(dplyr)
+library(tidyr)
+library(knitr)
+
 # Age By Group 
 # Box Plot
 age_group_box <- ggplot(oasis_data, aes(x = Group, y = Age, fill = Group)) + 
