@@ -1,14 +1,3 @@
-# Installing packages
-install.packages("kableExtra")
-install.packages("knitr")
-install.packages("ggplot2")
-install.packages("gridExtra")
-install.packages("grid")
-install.packages("dplyr")
-install.packages("tidyr")
-install.packages("kableExtra")
-install.packages("knitr")
-
 # Loading packages
 library(ggplot2)
 library(gridExtra)
