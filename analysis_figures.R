@@ -6,6 +6,9 @@ library(dplyr)
 library(tidyr)
 library(knitr)
 
+# Read RDS
+oasis_data <- readRDS("/home/rstudio/RJENKI_BIOS611Project/data/oasis_data.rds");
+
 # Age By Group 
 # Box Plot
 age_group_box <- ggplot(oasis_data, aes(x = Group, y = Age, fill = Group)) + 

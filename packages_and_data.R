@@ -8,3 +8,6 @@ library(knitr)
 
 # Importing data
 oasis_data <- read.csv("/home/rstudio/RJENKI_BIOS611Project/data/oasis_longitudinal.csv")
+
+# Save RDS 
+saveRDS(oasis_data, "/home/rstudio/RJENKI_BIOS611Project/data/oasis_data.rds");

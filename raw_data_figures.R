@@ -6,6 +6,9 @@ library(dplyr)
 library(tidyr)
 library(knitr)
 
+# Read RDS
+oasis_data <- readRDS("/home/rstudio/RJENKI_BIOS611Project/data/oasis_data.rds");
+
 # MMSE variable calculations and figure generation
 # Remove rows with missing values
 oasis_data_clean <- oasis_data %>% filter(!is.na(MMSE))

@@ -6,6 +6,9 @@ library(dplyr)
 library(tidyr)
 library(knitr)
 
+# Read RDS
+oasis_data <- readRDS("/home/rstudio/RJENKI_BIOS611Project/data/oasis_data.rds");
+
 # AGE Variable calculations and figure generation
 # Calculations of age summary statistics
 mean_age <- mean(oasis_data$Age, na.rm = TRUE)
