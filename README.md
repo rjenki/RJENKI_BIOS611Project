@@ -52,8 +52,17 @@ Lastly, use the make command to generate the report:
 ```bash
 make all
 ```
+## About the Makefile
+The makefile will generate the entire report when used as shown above. Below are the steps used in the Makefile to accomplish this. 
+1. Cleans figures and report PDF.
+2. Creates neccesary directories (figures, data).
+3. Runs **packages_and_data.R** to load the data. 
+4. Runs **demographics_figures.R** create the patient demographics figures.
+5. Runs **raw_data_figures.R** to make the raw data figures.
+6. Runs **analysis_figures.R** to complete the analysis and generate associated figures.
+7. Runs **report-script.Rmd** to generate the report in PDF format. 
 
-## Example Figures
+## A Few Figures From The Project
 <div align="center">
   <img src="readme_figures/nWBV_age_group_reg.png" width="60%" />
   <br><br> <!-- Adds two lines of space -->
