@@ -20,7 +20,7 @@ library(knitr)
 ```
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-knitr::opts_chunk$set(fig.width=5, fig.height=3, out.width="60%")
+knitr::opts_chunk$set(fig.width=6, fig.height=4, out.width="80%")
 ```
 # Analysis of OASIS Alzheimer's Detection Dataset
 The Oasis data set consists of 373 scans, of patients aged 60 to 96, who received an MRI scan on two or more visits, each visit separated by at least a year. The cognitive status (demented/non demented) was documented throughout the study.

@@ -20,7 +20,7 @@ age_group_box <- ggplot(oasis_data, aes(x = Group, y = Age, fill = Group)) +
   theme_minimal() +
   theme(
     legend.position = "none",  
-    plot.title = element_text(hjust = 0.5, face = "bold", size = 16)  
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 12)  
   )
 # ANOVA and Tukey's HSD
 anova_result <- aov(Age ~ Group, data = oasis_data)
@@ -60,7 +60,7 @@ educ_ses_reg <- ggplot(oasis_data_clean, aes(x = SES, y = EDUC, color = factor(S
   scale_x_discrete(labels = c("1" = "1 (Highest Status)", "5" = "5 (Lowest Status)")) +
   theme_minimal() +
   scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "none", plot.title = element_text(hjust = 0.5, face = "bold", size = 14)) +  
+  theme(legend.position = "none", plot.title = element_text(hjust = 0.5, face = "bold", size = 12)) +  
   annotate("text", x = max(oasis_data_clean$SES) - 1, y = max(oasis_data_clean$EDUC) - 3, 
            label = eq_label, size = 4, color = "black", hjust = 0, vjust = 0) +
   annotate("text", x = max(oasis_data_clean$SES) - 1, y = max(oasis_data_clean$EDUC) - 5, 
@@ -88,7 +88,7 @@ age_cdr_box <- ggplot(oasis_data, aes(x = CDR, y = Age, fill = CDR)) +
   theme_minimal() +
   theme(
     legend.position = "none",  
-    plot.title = element_text(hjust = 0.5, face = "bold", size = 16)  
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 12)  
   )
 # ANOVA and Tukey's HSD
 anova_result <- aov(Age ~ CDR, data = oasis_data)
@@ -115,7 +115,7 @@ mmse_group_box <- ggplot(oasis_data_clean, aes(x = Group, y = MMSE, fill = Group
   theme_minimal() +
   theme(
     legend.position = "none",  
-    plot.title = element_text(hjust = 0.5, face = "bold", size = 16)  
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 12)  
   ) +
   geom_hline(yintercept = 25, linetype = "dashed", color = "red", linewidth = 1) +
   # Add shaded region above Y = 25
