@@ -40,6 +40,7 @@ Once in the file, write down your password. Because this is public data and anal
 docker build --build-arg linux_user_pwd=$(cat .password) -t rjenki .
 ```
 Please note: This docker image uses rocker/rstudio instead of rocker/verse because the device used to run it is an M3 mac. <br>
+
 Finally, run the Docker image.
 ```bash
 docker run -d -p 8787:8787 -v /Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project:/home/rstudio/RJENKI_BIOS611Project rjenki
