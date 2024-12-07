@@ -59,6 +59,8 @@ make all
 ```
 
 ## Example Figures
-![Regression](readme_figures/nWBV_age_group_reg.png)
-![Boxplot](readme_figures/mmse_group_box.png)
-![Histogram](readme_figures/mmse_stats.png)
+<div align="center">
+  <img src="readme_figures/nWBV_age_group_reg.png" width="50%" />
+  <img src="readme_figures/mmse_group_box.png" width="50%" />
+  <img src="readme_figures/mmse_stats.png" width="50%" />
+</div>
