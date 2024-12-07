@@ -20,7 +20,7 @@ library(knitr)
 ```
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-knitr::opts_chunk$set(fig.width=6, fig.height=4, out.width="80%")
+knitr::opts_chunk$set(fig.width=7, fig.height=5, out.width="90%")
 ```
 # Analysis of OASIS Alzheimer's Detection Dataset
 The Oasis data set consists of 373 scans, of patients aged 60 to 96, who received an MRI scan on two or more visits, each visit separated by at least a year. The cognitive status (demented/non demented) was documented throughout the study.
@@ -29,49 +29,49 @@ The Oasis data set consists of 373 scans, of patients aged 60 to 96, who receive
 ### Age
 The patients in this dataset were in the age range of 60-96. Below is a histogram of the distribution of ages, along with the mean, min, max, and quartile data. The ages of participants follow a relatively normal distribution, with very similar mean and median values of 77.01 years and 77 years, respectively.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/age_stats.rds");
 ```
 
 ### Years of Education
 The years of edcuation each patient received was noted, with a minimum of 6 years and a maximum of 23 years. The histogram with associated statistics is shown below. The mode of this dataset is 12 years, indicating the participant finished high school, as shown by the peak on the histogram, with the second most common education length being 16, inidicating the particpant finished college. 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/educ_stats.rds");
 ```
 
 ### Clinical Dementia Rating
 The clinical dementia rating, or CDR, is a 0-3 scale, with severe cognitive impairment being a 3. As shown by the histogram below, the values of 1.5-3 are underrepresented in this dataset.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/cdr_plot.rds");
 ```
 
 ### Sex of Patient
 This study had more female participants than male participants, with 57% of patients being female.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/sex_plot.rds");
 ```
 
 ### Dominant Hand
 This study noted the dominant hand of participants, which was interesting because all participants were right handed. 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/hand_plot.rds");
 ```
 
 ### Dementia Status
 The study noted the dementia status of each patient as nondemented, demented, or converted, which would mean that they were considered nondemented at the start of the study and later considered demented. The study included 190 nondemented patients, 146 patients diagnosed with dementia, and 37 patients whose status changed from nondemented to demented over the course of the study.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/group_plot.rds");
 ```
 
 ### Socioeconomic Status
 The socioeconomic status of participants is scored by the Hollingshead Index of Social Position (HISP), where 1 is the highest status and 5 is the lowest. There were 19 participants who did not have their socioeconomic status listed. There were very few patients of the lowest socioeconomic status. The other groups were relatively similar in size, with the largest group being those who scored a 2 on the HISP. 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/ses_plot.rds");
 ```
 
@@ -79,35 +79,35 @@ readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/ses_plot.rds");
 ### Mini Mental State Examination
 The mini mental state examination (MMSE) assesses cognitive impairment, where lower scores indicate more significant cognitive impairment. A score of 25 or greater is considered normal, and the score range from 0-30.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/mmse_stats.rds");
 ```
 
 ### MR Delay Time
 The MR delay time notes the days between each MRI the patient undergoes. The peak at zero indicates the first MRI the patient underwent. Excluding 0, the MR delay ranges from 182 to 2639 days.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/mr_stats.rds");
 ```
 
 ### Normalized Whole Brain Volume
 The normalized whole brain volume is the measurement of the total brain volume after adjusting it for individual head size. As shown in the histogram and statistics chart below, it follows a relatively normal distribution and the mean and median are very similar.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/nWBV_stats.rds");
 ```
 
 ### Estimated Total Intracranial Volume
 The estimated total intracranial volume is the estimated volume of the cranial cavity as outlined by the supratentorial dura matter. This measure stays consistant with age, and is used to correct of head size variation across subjects in the study when computing the normalized whole brain volume. This data is skewed right, as shown by difference in the mean, 1488 cm^3, and the median, 1470 cm^3. 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/eTIV_stats.rds");
 ```
 
 ### Atlas Scaling Factor
 The Altas Scaling Factor is used standardise brain measurements across patients while accounting for differences in head size and shape, allowing the computation of the normalized whole brain volume. This factor follows a relatively normal distribution, as shown by the histogram below. There is not significant skewness in the data, represented by the very similar median and mean.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/ASF_stats.rds");
 ```
 
@@ -115,7 +115,7 @@ readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/ASF_stats.rds");
 ### Age and Dementia Group
 Though these patients are 60 and older, it was expected that the demented group would be older than the non-demented group, especially because some patients changed groups from non-demented to demented over the course of the study. However, it was found that the non-demented and demented groups were not significantly different in age, but the converted group was significantly different than the demented group  with a p-value of 0.034, through the Tukey's HSD test.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/age_group_box.rds");
 ```
 
@@ -127,14 +127,14 @@ knitr::kable(df, caption = "Table 1: Tukey's HSD Results for Age vs. Group")
 ### Socioeconomic Status and Education
 It was expected for years of education to decrease as Hollingshead Index of Social Position increases, because the status decreases with increasing Hollingshead Index of Social Position, where 1 is the highest status and 5 is the lowest. A linear regression was performed and as expected, the model was statistically significant with a p-value of 2.2e-16, showing that the predicted years of education decrease with decreasing socioeconomic status.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/educ_ses_reg.rds");
 ```
 
 ### Age and CDR
 It was expected for CDR to increase with age. The CDR is a 0-3 scale, with severe cognitive impairment being a 3. This dataset had CDR values ranging 0-2, with only 3 participants at a score of a 2. From the ANOVA with the Tukey's HSD test, there were no significant differences found in the age of each CDR rating. However, it would be interesting to redo this study and see if any differences arise when including more participants with a CDR of 2-3. 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/age_cdr_box.rds");
 ```
 
@@ -146,11 +146,11 @@ knitr::kable(df, caption = "Table 2: Tukey's HSD Results for Age vs. CDR")
 ### Group and MMSE
 It was expected that MMSE would be lower in the demented group because the MMSE assesses cognitive impairment, where lower scores indicate more significant cognitive impairment. Through an ANOVA with Tukey's HSD test, it was found that the demented group was significantly different than both the converted and non-demented group with a p-value of 0. An interesting finding from this analysis is that the converted and non-demented group are not significantly different. This may be explained by higher MMSE scores due to patients being in the early stages of dementia and cognitive impairment, or that the MMSE was performed while these patients were still considered non-demented.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/mmse_group_box.rds");
 ```
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 df <- readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/mmse_group_anova.rds");
 knitr::kable(df, caption = "Table 3: Tukey's HSD Results for MMSE vs. Group")
 ```
@@ -158,11 +158,11 @@ knitr::kable(df, caption = "Table 3: Tukey's HSD Results for MMSE vs. Group")
 ### nWBV And Age By Group
 nWBV was shown to decline significantly with increasing age in previous studies, so this was analyzed separately by dementia group. All three groups had a linear correlation between nWBV and age, which confirmed that nWBV decreased with increasing age. The rates of decline were slightly different. The nondemented group showed a rate of decline at 0.0028 per year, whereas the converted group showed a 35% higher rate of decline than the nondemented group (0.0038 per year). This may be due to the converted group being in a more active cognitive decline. Interestingly, the demented group showed a lower rate of decline than both groups at 0.0019 per year, which may be due to that group having a lower nWBV to start. An interesting future analysis would be to reanalyze this data by percentage instead of raw value, to see if a different result shows for the demented group. 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/nWBV_age_group_reg.rds");
 ```
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 df <- readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/nWBV_age_group_regression_results.rds");
 knitr::kable(df, caption = "Table 4: Linear Regression Results By Group")
 ```
