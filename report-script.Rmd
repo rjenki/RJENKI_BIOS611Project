@@ -113,7 +113,7 @@ It was expected for years of education to decrease as Hollingshead Index of Soci
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/educ_ses_reg.rds");
 ```
 
-### AGE AND CDR
+### Age and CDR
 It was expected for CDR to increase with age. The CDR is a 0-3 scale, with severe cognitive impairment being a 3. This dataset had CDR values ranging 0-2, with only 3 participants at a score of a 2. From the ANOVA with the Tukey's HSD test, there were no significant differences found in the age of each CDR rating. However, it would be interesting to redo this study and see if any differences arise when including more participants with a CDR of 2-3. 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/age_cdr_box.rds");
@@ -124,7 +124,7 @@ df <- readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/age_cdr_anova.rds");
 knitr::kable(df, caption = "Table 2: Tukey's HSD Results for Age vs. CDR")
 ```
 
-### GROUP AND MMSE 
+### Group and MMSE
 It was expected that MMSE would be lower in the demented group because the MMSE assesses cognitive impairment, where lower scores indicate more significant cognitive impairment. Through an ANOVA with Tukey's HSD test, it was found that the demented group was significantly different than both the converted and non-demented group with a p-value of 0. An interesting finding from this analysis is that the converted and non-demented group are not significantly different. This may be explained by higher MMSE scores due to patients being in the early stages of dementia and cognitive impairment, or that the MMSE was performed while these patients were still considered non-demented.
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/mmse_group_box.rds");
@@ -135,7 +135,7 @@ df <- readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/mmse_group_anova.rds"
 knitr::kable(df, caption = "Table 3: Tukey's HSD Results for MMSE vs. Group")
 ```
 
-### nWBV AND AGE BY GROUP
+### nWBV And Age By Group
 nWBV was shown to decline significantly with increasing age in previous studies, so this was analyzed separately by dementia group. All three groups had a linear correlation between nWBV and age, which confirmed that nWBV decreased with increasing age. The rates of decline were slightly different. The nondemented group showed a rate of decline at 0.0028 per year, whereas the converted group showed a 35% higher rate of decline than the nondemented group (0.0038 per year). This may be due to the converted group being in a more active cognitive decline. Interestingly, the demented group showed a lower rate of decline than both groups at 0.0019 per year, which may be due to that group having a lower nWBV to start. An interesting future analysis would be to reanalyze this data by percentage instead of raw value, to see if a different result shows for the demented group. 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 readRDS("/home/rstudio/RJENKI_BIOS611Project/figures/nWBV_age_group_reg.rds");
