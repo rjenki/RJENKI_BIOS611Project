@@ -60,7 +60,9 @@ make all
 
 ## Example Figures
 <div align="center">
-  <img src="readme_figures/nWBV_age_group_reg.png" width="70%" style="margin-bottom: 100px;" />
-  <img src="readme_figures/mmse_group_box.png" width="70%" style="margin-bottom: 100px;" />
-  <img src="readme_figures/mmse_stats.png" width="70%" />
+  <img src="readme_figures/nWBV_age_group_reg.png" width="60%" />
+  <br><br> <!-- Adds two lines of space -->
+  <img src="readme_figures/mmse_group_box.png" width="60%" />
+  <br><br> <!-- Adds two lines of space -->
+  <img src="readme_figures/mmse_stats.png" width="60%" />
 </div>
