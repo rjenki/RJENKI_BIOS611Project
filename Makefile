@@ -83,32 +83,6 @@ figures/nWBV_age_group_reg.rds: .created-dirs data/oasis_longitudinal.csv analys
 figures/nWBV_age_group_regression_results.rds: .created-dirs data/oasis_longitudinal.csv analysis_figures.R
 	Rscript analysis_figures.R
 
-# Visualization server target (Optional)
-visualize: \
-	figures/age_stats.rds \
-	figures/educ_stats.rds \
-	figures/cdr_plot.rds \
-	figures/sex_plot.rds \
-	figures/hand_plot.rds \
-	figures/group_plot.rds \
-	figures/ses_plot.rds \
-	figures/mmse_stats.rds \
-	figures/mr_stats.rds \
-	figures/nWBV_stats.rds \
-	figures/eTIV_stats.rds \
-	figures/ASF_stats.rds \
-	figures/age_group_box.rds \
-	figures/age_group_anova.rds \
-	figures/educ_ses_reg.rds \
-	figures/age_cdr_box.rds \
-	figures/age_cdr_anova.rds \
-	figures/age_cdr_stats.rds \
-	figures/mmse_group_box.rds \
-	figures/mmse_group_anova.rds \
-	figures/nWBV_age_group_reg.rds \
-	figures/nWBV_age_group_regression_results.rds
-	python3 -m http.server 8888
-
 # Report
 generate_report: \
 	figures/age_stats.rds \
