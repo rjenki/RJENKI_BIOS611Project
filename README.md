@@ -30,8 +30,7 @@ To use this repository, first clone the repository to your device.
 ```bash
 git clone https://github.com/rjenki/RJENKI_BIOS611Project
 ```
-
-
+<br>
 Add a .password file to your device with the following code:
 ```bash
 nano .password
