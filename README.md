@@ -35,11 +35,15 @@ git clone https://github.com/rjenki/RJENKI_BIOS611Project
 nano .password
 ```
 Once in the file, write down your password. Because this is public data and analysis, the password used was "workspace".
-<br> Next, use Docker to build and run the associated image.
+
+
+
+Next, use Docker to build and run the associated image.
 ```bash
 docker build --build-arg linux_user_pwd=$(cat .password) -t rjenki .
 ```
 Please note: This docker image uses rocker/rstudio instead of rocker/verse because the device used to run it is an M3 mac.
+
 
 
 Finally, run the Docker image.
