@@ -4,6 +4,15 @@ author: "Rebecca Jenkins"
 date: "2024-12-07"
 output: pdf_document
 ---
+```{r}
+# Loading packages
+library(ggplot2)
+library(gridExtra)
+library(grid) 
+library(dplyr)
+library(tidyr)
+library(knitr)
+```
 
 # Analysis of OASIS Alzheimer's Detection Dataset
 The Oasis data set consists of 373 scans, of patients aged 60 to 96, who received an MRI scan on two or more visits, each visit separated by at least a year. The cognitive status (demented/non demented) was documented throughout the study.
