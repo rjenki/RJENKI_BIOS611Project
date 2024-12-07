@@ -42,7 +42,7 @@ docker build --build-arg linux_user_pwd=$(cat .password) -t rjenki .
 Please note: This docker image uses rocker/rstudio instead of rocker/verse because the device used to run it is an M3 mac.
 Finally, run the Docker image.
 ```bash
-docker run -d -p 8787:8787 -v /Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project:/home/rstudio/RJENKI_BIOS611Project rjenki
+docker run -d -p 8787:8787 -v $(pwd)/RJENKI_BIOS611Project:/home/rstudio/RJENKI_BIOS611Project rjenki
 ```
 Once navigated to http://localhost:8787/, specify the directory:
 ```bash
