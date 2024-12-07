@@ -1,8 +1,8 @@
 ---
-title: "Final Project BIOS611"
-author: "Rebecca Jenkins"
-date: "2024-12-07"
-output: pdf_document
+output:
+  pdf_document:
+    includes:
+      in_header: header.tex
 ---
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 install.packages('tinytex')
