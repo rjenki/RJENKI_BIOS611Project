@@ -7,21 +7,23 @@ The report generated will give patient demographic data, visualization of the da
 This data was obtained from the Open Access Series of Imaging Studies (OASIS), which is comprised by data made available from the Washington University Alzheimer’s Disease Research Center, Dr. Randy Buckner at the Howard Hughes Medical Institute (HHMI) at Harvard University, the Neuroinformatics Research Group (NRG) at Washington University School of Medicine, and the Biomedical Informatics Research Network (BIRN).
 Link to data: https://www.kaggle.com/datasets/ninadaithal/imagesoasis 
 ### Columns
-Subject ID: Subject identification 
-Age: Age (Years)
-MRI ID: MRI Exam Identification 
-EDUC: Years of Education
-Group: Nondemeneted/Demented 
-SES: Socioeconomic Status
-Visit: Visit # 
-MMSE: Mini Mental State Examination
-MR Delay: MR Delay Time 
-CDR: Clinical Dementia Rating
-M/F: Sex 
-eTIV: Estimated total intracranial volume
-Hand: Right or left handed 
-nWBV: Normalize Whole Brain Volume
-ASF: Atlas Scaling Factor
+| Variable             | Description                                        |
+|----------------------|----------------------------------------------------|
+| Subject ID           | Subject identification                             |
+| Age                  | Age (Years)                                        |
+| MRI ID               | MRI Exam Identification                            |
+| EDUC                 | Years of Education                                 |
+| Group                | Nondemented/Demented                               |
+| SES                  | Socioeconomic Status                               |
+| Visit                | Visit #                                            |
+| MMSE                 | Mini Mental State Examination                      |
+| MR Delay             | MR Delay Time                                      |
+| CDR                  | Clinical Dementia Rating                           |
+| M/F                  | Sex                                                |
+| eTIV                 | Estimated total intracranial volume                |
+| Hand                 | Right or left handed                               |
+| nWBV                 | Normalize Whole Brain Volume                       |
+| ASF                  | Atlas Scaling Factor                               |
 
 To use this repository, first clone the repository to your device. 
 ```bash
