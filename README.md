@@ -26,27 +26,31 @@ ASF: Atlas Scaling Factor
 To use this repository, first clone the repository to your device. 
 ```bash
 git clone https://github.com/rjenki/RJENKI_BIOS611Project
+```
 
 Add a .password file to your device with the following code:
 ```bash
 nano .password
+```
 Once in the file, write down your password. Because this is public data and analysis, the password used was "workspace".
 
 Next, use Docker to build and run the associated image.
 ```bash
 docker build --build-arg linux_user_pwd=$(cat .password) -t rjenki .
-
+```
 Please note: This docker image uses rocker/rstudio instead of rocker/verse because the device used to run it is an M3 mac.
 
 Finally, run the Docker image.
 ```bash
 docker run -d -p 8787:8787 -v /Users/rebeccajenkins/BIOS611/RJENKI_BIOS611Project:/home/rstudio/RJENKI_BIOS611Project rjenki
+```
 
 Once navigated to http://localhost:8787/, specify the directory:
 ```bash
 cd ~/RJENKI_BIOS611Project
+```
 
 Lastly, use the make command to generate the report:
 ```bash
 make all
-
+```
