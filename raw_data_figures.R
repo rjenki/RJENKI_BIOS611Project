@@ -81,7 +81,7 @@ mr_stats <- data.frame(
 # Histogram for age
 p <- ggplot(oasis_data, aes(x = MR.Delay)) +
   geom_histogram(binwidth = 100, fill = "lightgreen", color = "black", alpha = 0.7) +
-  labs(title = "MR Delay Time (Contrast) Distribution with Summary Statistics",
+  labs(title = "MR Delay Time Distribution with Summary Statistics",
        x = "Time (Days)", y = "Frequency") +
   theme_minimal() +
   theme(
